@@ -1,0 +1,31 @@
+---
+title: "Leaflet Demonstration - April 15, 2017"
+author: "Lavanya Viswanathan"
+date: "April 15, 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+This is a demonstration of Leaflet for the course on Developing Data Products. It plots five national parks in the state of Karnataka in India in an interactive map. Click on the tiger icons to see popups with the name of each national park.
+
+```{r cars,echo=TRUE}
+library(leaflet)
+df <- data.frame(
+  latitude = c(14.9981,11.6657,12.8004,13.2226,12.0314),
+  longitude = c(74.3587,76.6285,77.5776,75.2508,76.1207),
+  popup = as.character(c("Anshi National Park and Kali Tiger Reserve",
+             "Bandipur National Park",
+             "Bannerghatta National Park",
+             "Kudremukh National Park",
+             "Nagarhole National Park"))
+)
+tiger_icon <- makeIcon("tiger-icon.png",iconWidth = 31,iconHeight = 31)
+my_map <- df %>%
+  leaflet() %>% 
+  addTiles() %>%
+  addMarkers(lat=df$latitude,lng=df$longitude,popup=df$popup,icon=tiger_icon) %>%
+  setView(76,13,zoom=7)
+my_map
+```
+
